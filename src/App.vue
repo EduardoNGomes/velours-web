@@ -2,9 +2,9 @@
 </script>
 
 <template>
-  <header id="header" class="w-full bg-gray-2 flex justify-between p-2 text-gray-7 items-baseline">
+  <header id="header" class="w-full bg-gray-7 flex justify-between p-2 text-gray-2 items-baseline">
     <div>
-      <h1 class="text-gray-7 font-header text-2xl">Your List</h1>
+      <h1 class="text-gray-2 font-header text-2xl">Your List</h1>
     </div>
     <ul class="flex gap-1">
       <li class="uppercase font-bold">sair</li>

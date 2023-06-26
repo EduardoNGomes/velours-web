@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "functions": {
+    "api/*": {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
+      }
+    }
+  }
+}

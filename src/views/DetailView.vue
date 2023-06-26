@@ -1,18 +1,25 @@
 <script lang="ts">
   import NavPages from '@/components/NavPages.vue';
   import Button from '@/components/Button.vue';
+  import { api } from '@/axios';
+  import { useCookies } from '@vueuse/integrations/useCookies'
+import router from '@/router';
+import { formToJSON } from 'axios';
+import { fromJSON } from 'postcss';
+
   interface Item {
     id: string
     name:string,
     description:string,
     price:number,
-    img:string ,
+    coverUrl:string ,
     selectedImage?:File | null
   }
   export default{
     data(){
       return{
-        item: {} as Item
+        item: {} as Item,
+        cookies: useCookies(['Cookie']),
       }
     },
     components:{
@@ -23,29 +30,67 @@
       handleSelectedImage(event: Event) {
         const file = (event.target as HTMLInputElement).files?.[0];
         this.item.selectedImage = file;
-        this.item.img = URL.createObjectURL(file!)
+        this.item.coverUrl = URL.createObjectURL(file!)
       },
-      handleSendData(){
-        console.log(this.item.name)
+      async handleSendData(){
+        const form = new FormData()
+        form.append('name', this.item.name)
+        form.append('description', this.item.description)
+        form.append('price', String(this.item.price))
+
+        if(this.item.selectedImage){
+          form.append('image',this.item.selectedImage)
+        }
+
+        try {
+          const response = await api.put(`products/${this.item.id}`,form, {
+            headers:{
+              Authorization: `Bearer ${this.$cookies.get('token')}`
+            }
+          })
+
+          alert(response.data)
+          router.push('/')
+        } catch (error) {
+          console.log(error)
+        }
       },
-      handleDelete(){
+      async handleDelete(){
         if(this.item.name||this.item.description||this.item.price||this.item.selectedImage){
           const answer = confirm('Tem certeza que deseja excluir?')
           if(answer){
-            console.log('cancel')
+            try {
+              const response = await api.delete(`/products/${this.item.id}`,{
+                headers: {
+                  Authorization: `Bearer ${this.$cookies.get('token')}`
+                }
+              })
+              alert(response.data)
+            router.push('/home') 
+            } catch (error) {
+              console.log(error)
+            }
+
           }
         }
       }
     },
     async mounted(){
-      const response = {
-        id:'1',
-        name:'Produto de test',
-        description:'Produto de test description',
-        price:20,
-        img:'/images/tomioka.jpeg', 
+      try {
+        const response = await api.get(`/products/${this.$route.params.id}`,{
+          headers:{
+            Authorization: `Bearer ${this.$cookies.get('token')}` 
+          }
+        })
+         this.item.id = response.data.id;
+         this.item.description = response.data.description;
+         this.item.name = response.data.name;
+         this.item.price = response.data.price;
+         this.item.coverUrl = `${import.meta.env.VITE_API}/products/image/${response.data.coverUrl}`
+      } catch (error) {
+        console.log(error)
       }
-      this.item = response;
+
     }
   }
 
@@ -72,7 +117,7 @@
             class="hidden"
             @change="handleSelectedImage"
           />
-          <img :src="item.img" v-if="item.img" class="rounded-lg"/>
+          <img :src="item.coverUrl" v-if="item.coverUrl" class="rounded-lg"/>
         </div>
         <!--Name -->
         <div class="relative flex flex-col gap-1">

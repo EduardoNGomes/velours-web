@@ -1,6 +1,10 @@
 <script lang="ts">
   import NavPages from '@/components/NavPages.vue';
   import Button from '@/components/Button.vue';
+  import { useCookies } from '@vueuse/integrations/useCookies'
+  import { api } from '@/axios';
+  import router from '@/router';
+
   interface Item {
     name:string,
     description:string,
@@ -11,7 +15,8 @@
   export default{
     data(){
       return{
-        item: {} as Item
+        item: {} as Item,
+        cookies: useCookies(['Cookie'])
       }
     },
     components:{
@@ -24,9 +29,25 @@
         this.item.selectedImage = file;
         this.item.img = URL.createObjectURL(file!)
       },
-      handleSendData(){
+      async handleSendData(){
         if(!this.item.description || !this.item.price||!this.item.selectedImage||!this.item.name){
           return alert('Preencha todos os campos')
+        }
+        const form = new FormData();
+        form.append('name',this.item.name)
+        form.append('price',String(this.item.price))
+        form.append('description',this.item.description)
+        form.append('image',this.item.selectedImage)
+
+        try {
+          const response = await api.post('/products',form, {headers:{
+            Authorization: `Bearer ${this.$cookies.get('token')}`
+          }})
+
+          alert(response.data)
+          router.push('/home')
+        } catch (error) {
+          console.log(error)
         }
       },
     },

@@ -2,21 +2,25 @@
   import LogoAPP from '@/components/icons/IconLogo.vue'
   import ProductCard from '@/components/ProductCard.vue';
   import Button from '@/components/Button.vue';
-import { defineComponent } from 'vue';
-import router from '@/router';
+  import { defineComponent } from 'vue';
+  import router from '@/router';
+  import { api } from '@/axios';
+  import { useCookies } from '@vueuse/integrations/useCookies'
   interface Item {
       id: string
       name:string,
       description:string,
       price:number,
-      img:string ,
+      coverUrl:string ,
       selectedImage?:File | null
   }
 
   export default defineComponent({
     data(){
       return {
-        items:  [] as Item[]
+        items:  [] as Item[],
+        cookies: useCookies(['Cookie'])
+
       }
     },
     components:{
@@ -30,23 +34,14 @@ import router from '@/router';
       }
     },
     async mounted(){
-      const response = [
-        {
-          id:'1',
-          name:'Produto de test',
-          description:'Produto de test description',
-          price:20,
-          img:'/images/tomioka.jpeg',
-        },
-        {
-          id:'2',
-          name:'Produto de test',
-          description:'Produto de test description',
-          price:20,
-          img:'/images/tomioka.jpeg',
-        }
-      ]
-      this.items = response
+      
+      try {
+        const response = await api.get('/products', {headers: {Authorization: `Bearer ${this.$cookies.get('token')}` }})
+        this.items = response.data
+      } catch (error) {
+        console.log(error)
+      }
+
     }
   })
 </script>

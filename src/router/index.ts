@@ -26,22 +26,46 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: SignUpView
+      component: SignUpView,
     },
     {
       path: '/detail/:id',
       name: 'detail',
-      component: DetailView
+      component: DetailView,
+      beforeEnter:(to,from,next) => {
+        const cookies = useCookies(['Cookie'])
+        if(!cookies.get('token')){
+          next('/')
+        }else{
+          next()
+        }
+      }
     },
     {
       path: '/create',
       name: 'create',
-      component: CreateView
+      component: CreateView,
+      beforeEnter:(to,from,next) => {
+        const cookies = useCookies(['Cookie'])
+        if(!cookies.get('token')){
+          next('/')
+        }else{
+          next()
+        }
+      }
     },
     {
       path: '/home',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      beforeEnter:(to,from,next) => {
+        const cookies = useCookies(['Cookie'])
+        if(!cookies.get('token')){
+          next('/')
+        }else{
+          next()
+        }
+      }
     },
 
   ]

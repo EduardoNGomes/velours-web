@@ -46,7 +46,7 @@
     />
   </div>
   <Button :handleClick="handleClick" :functionType="'login'" :title="'login'"/>
-
+  <router-link to="/signup" class="text-center">criar uma conta</router-link>
   
     
   </form>

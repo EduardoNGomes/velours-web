@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { PhPencil, PhPlus,PhTrash  } from '@phosphor-icons/vue';
+  import { PhPencil, PhPlus,PhTrash,PhSignIn  } from '@phosphor-icons/vue';
 
   const props = defineProps({
     functionType:{
-      type: String as () => 'update' | 'delete' | 'create',
+      type: String as () => 'update' | 'delete' | 'create' | 'login',
       required: true,
     },
     title: {
@@ -41,6 +41,14 @@
     class="w-full border rounded-md uppercase font-bold text-sm text-gray-7 border-gray-7 p-3 bg-gray-1 flex items-center justify-center gap-2" 
     @click="props.handleClick">
     <PhPlus class="text-lg"/>
+    {{props.title}}
+  </button>
+  <button 
+    v-if="props.functionType == 'login'"
+    type="button" 
+    class="w-full border rounded-md uppercase font-bold text-sm text-gray-7 border-gray-7 p-3 bg-gray-1 flex items-center justify-center gap-2" 
+    @click="props.handleClick">
+    <PhSignIn  weight="light" />
     {{props.title}}
   </button>
 </template>

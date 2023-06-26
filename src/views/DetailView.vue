@@ -54,13 +54,13 @@
 
 <template>
   <div class="h-screen bg-gray-2 flex flex-col items-center ">
-    <NavPages :title="'editar'"/>
+    <NavPages :title="'editar '"/>
     <main class="w-full bg-gray-7 flex-1 rounded-t-3xl">
       <form class="flex w-full flex-col gap-4 p-10">
         <!--IMG -->
         <div class="relative flex flex-col gap-1">
           <label
-            htmlFor="image"
+            for="image"
             class="rounded-full border border-gray-3 py-2 text-center text-sm font-bold text-gray-2 outline-gray-3 focus:outline-gray-1"
           >
             Selecione uma foto
@@ -76,7 +76,7 @@
         </div>
         <!--Name -->
         <div class="relative flex flex-col gap-1">
-          <label htmlFor="name" class="ml-1 text-sm font-bold text-gray-1">
+          <label for="name" class="ml-1 text-sm font-bold text-gray-1">
             Nome do Produto:
           </label>
           <input
@@ -91,7 +91,7 @@
         </div>
         <!--Description -->
         <div class="relative flex flex-col gap-1">
-          <label htmlFor="description" class="ml-1 text-sm font-bold text-gray-1">
+          <label for="description" class="ml-1 text-sm font-bold text-gray-1">
             Descrição do produto:
           </label>
           <textarea 
@@ -103,7 +103,7 @@
         </div>
         <!--Price -->
         <div class="relative flex flex-col gap-1">
-          <label htmlFor="price" class="ml-1 text-sm font-bold text-gray-1">
+          <label for="price" class="ml-1 text-sm font-bold text-gray-1">
             Valor Produto:
           </label>
           <span
@@ -119,6 +119,7 @@
             v-model="item.price"
           />
         </div>
+         <!--Buttons -->
         <div class="w-full flex items-center gap-3">
           <Button :handleClick="handleSendData" :title="'atualizar'" :function-type="'update'"/>
           <Button :handleClick="handleDelete" :title="'deletar'" :functionType="'delete'"/>

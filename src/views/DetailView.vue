@@ -1,8 +1,126 @@
-<script setup lang="ts">
+<script lang="ts">
+  import NavPages from '@/components/NavPages.vue';
+  import Button from '@/components/Button.vue';
+  interface Item {
+    id: string
+    name:string,
+    description:string,
+    price:number,
+    img:string ,
+    selectedImage?:File | null
+  }
+  export default{
+    data(){
+      return{
+        item: {} as Item
+      }
+    },
+    components:{
+      NavPages,
+      Button
+    },
+    methods:{
+      handleSelectedImage(event: Event) {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        this.item.selectedImage = file;
+        this.item.img = URL.createObjectURL(file!)
+      },
+      handleLog(){
+        console.log(this.item.name)
+      }
+    },
+
+    emits:['handleLog'],
+
+    async mounted(){
+      const response = {
+        id:'1',
+        name:'Produto de test',
+        description:'Produto de test description',
+        price:20,
+        img:'/images/tomioka.jpeg', 
+      }
+      this.item = response;
+      }
+  }
+
+
 </script>
 
 <template>
-  <h1>
-    hello world {{ $route.params.id }}
-  </h1>
+  <div class="h-screen bg-gray-2 flex flex-col items-center ">
+    <NavPages :title="'editar'"/>
+    <main class="w-full bg-gray-7 flex-1 rounded-t-3xl">
+      <form class="flex w-full flex-col gap-4 p-10">
+        <!--IMG -->
+        <div class="relative flex flex-col gap-1">
+          <label
+            htmlFor="image"
+            class="rounded-full border border-gray-3 py-2 text-center text-sm font-bold text-gray-2 outline-gray-3 focus:outline-gray-1"
+          >
+            Selecione uma foto
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="hidden"
+            @change="handleSelectedImage"
+          />
+          <img :src="item.img" v-if="item.img" class="rounded-lg"/>
+        </div>
+        <!--Name -->
+        <div class="relative flex flex-col gap-1">
+          <label htmlFor="name" class="ml-1 text-sm font-bold text-gray-1">
+            Nome do Produto:
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="rounded-full border border-gray-3 py-2 pl-8 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
+            placeholder="digite o nome do produto"
+            v-model="item.name"
+          />
+          
+        </div>
+        <!--Description -->
+        <div class="relative flex flex-col gap-1">
+          <label htmlFor="description" class="ml-1 text-sm font-bold text-gray-1">
+            Descrição do produto:
+          </label>
+          <textarea 
+            name="description"
+            id="description"
+            class="rounded-3xl border border-gray-3 py-2 pl-8 pr-4 text-gray-2 outline-gray-3 focus:outline-gray-1 resize-none"
+            placeholder="digite o nome do produto" 
+            v-model="item.description"></textarea>
+        </div>
+        <!--Price -->
+        <div class="relative flex flex-col gap-1">
+          <label htmlFor="price" class="ml-1 text-sm font-bold text-gray-1">
+            Valor Produto:
+          </label>
+          <span
+              size={18}
+              class="absolute bottom-[9px] left-3 text-gray-3 "
+          >R$:</span>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            class="rounded-full border border-gray-3 py-2 pl-10 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
+            placeholder="digite o preço do produto"
+            v-model="item.price"
+          />
+        </div>
+        <div class="w-full flex items-center gap-3">
+          <Button :handleClick="handleLog" :title="'enviar'"/>
+          <Button :handleClick="handleLog" :title="'cancelar'"/>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
 </template>

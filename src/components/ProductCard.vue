@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import router from '@/router';
-import {PhCheck,PhCircle} from '@phosphor-icons/vue'
-import type { PropType } from 'vue';
+  import {PhCheck,PhCircle} from '@phosphor-icons/vue'
+  import type { PropType } from 'vue';
   interface Item {
     id: string
     img:string,
@@ -13,7 +13,6 @@ import type { PropType } from 'vue';
     item: {
       type: Object as PropType<Item> ,
       required: true,
-
     }
   })
 

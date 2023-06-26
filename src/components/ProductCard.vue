@@ -1,31 +1,50 @@
-<script setup lang="ts">
+<script lang="ts">
   import router from '@/router';
-  import {PhCheck,PhCircle} from '@phosphor-icons/vue'
-  import type { PropType } from 'vue';
+  import { ref, type PropType } from 'vue';
   interface Item {
-    id: string
-    img:string,
-    title:string,
-    check:boolean
+      id: string
+      name:string,
+      description:string,
+      price:number,
+      img:string ,
+      selectedImage?:File | null
   }
-
-  const props = defineProps({
-    item: {
+  export default {
+    data() {
+      return {
+        formatePrice:'',
+      }
+    },
+    props:{
+      item: {
       type: Object as PropType<Item> ,
       required: true,
     }
-  })
+    },
+    methods: {
+      handleNavigate(id:string){
+      router.push(`/detail/${id}`)
+    }
+    },
+    mounted(){
+      const formatter = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      });
 
-  function handleNavigate(id:string){
-    router.push(`/detail/${id}`)
+      this.formatePrice = formatter.format(this.item.price);
+      }
   }
+
+  
+
+
 </script>
 
 <template>
-  <div class="rounded-md border border-gray-5 p-3 flex items-center w-full  text-gray-7 gap-4" @click="handleNavigate(props.item.id)">
-    <img :src="props.item.img"  alt="" class="w-10 h-10 object-cover rounded-full justify-self-start">
-    <p class="text-lg w-full pl-5 border-l-2 ">{{ props.item.title }}</p>
-    <PhCheck  v-if="item.check" class="text-3xl"/>
-    <ph-circle v-else="!props.item.check" class="text-3xl"/>
+  <div class="rounded-md border border-gray-5 p-3 flex items-center w-full  text-gray-7 gap-4" @click="handleNavigate(item.id)">
+    <img :src="item.img"  alt="" class="w-10 h-10 object-cover rounded-full justify-self-start">
+    <p class="text-lg w-full pl-5 border-l-2 ">{{ item.name }}</p>
+    <p class="text-base">{{formatePrice}}</p>
   </div>
 </template>

@@ -38,9 +38,9 @@
   <button 
     v-if="props.functionType == 'create'"
     type="button" 
-    class="w-full border rounded-full uppercase font-bold text-sm text-gray-7 border-gray-1 px-5 py-2 bg-gray-1 flex items-center justify-center gap-2" 
+    class="w-full border rounded-md uppercase font-bold text-sm text-gray-7 border-gray-7 p-3 bg-gray-1 flex items-center justify-center gap-2" 
     @click="props.handleClick">
-    <PhPlus class="text-base"/>
+    <PhPlus class="text-lg"/>
     {{props.title}}
   </button>
 </template>

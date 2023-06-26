@@ -16,7 +16,8 @@
     data(){
       return{
         item: {} as Item,
-        cookies: useCookies(['Cookie'])
+        cookies: useCookies(['Cookie']),
+        loading: false
       }
     },
     components:{
@@ -30,7 +31,9 @@
         this.item.img = URL.createObjectURL(file!)
       },
       async handleSendData(){
+        this.loading = true
         if(!this.item.description || !this.item.price||!this.item.selectedImage||!this.item.name){
+          this.loading = false
           return alert('Preencha todos os campos')
         }
         const form = new FormData();
@@ -47,6 +50,7 @@
           alert(response.data)
           router.push('/home')
         } catch (error) {
+          this.loading = false
           console.log(error)
         }
       },
@@ -88,7 +92,7 @@
             name="name"
             id="name"
             class="rounded-full border border-gray-3 py-2 pl-8 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
-            placeholder="digite o nome do produto"
+            placeholder="Digite o nome do produto"
             v-model="item.name"
           />
           
@@ -102,7 +106,7 @@
             name="description"
             id="description"
             class="rounded-3xl border border-gray-3 py-2 pl-8 pr-4 text-gray-2 outline-gray-3 focus:outline-gray-1 resize-none"
-            placeholder="digite o nome do produto" 
+            placeholder="digite a descrição do produto" 
             v-model="item.description"></textarea>
         </div>
         <!--Price -->
@@ -124,9 +128,9 @@
           />
         </div>
         <div class="w-full flex items-center gap-3">
-          <Button :handleClick="handleSendData" :title="'criar'" :function-type="'create'"/>
+          <Button v-if="loading === false" :handleClick="handleSendData" :title="'criar'" :function-type="'create'"/>
+          <Button v-if="loading === true" :handleClick="handleSendData" :functionType="'loading'" :title="'loading'"/>
         </div>
-
       </form>
     </main>
   </div>

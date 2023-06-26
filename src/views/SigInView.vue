@@ -6,9 +6,14 @@
 
   const email = ref('')
   const password = ref('')
+  const loading = ref(false)
+
 
   async function handleClick() {
+    loading.value = true
+
     if(email.value.length === 0 || password.value.length === 0){
+      loading.value = false
       return alert('Preencha todos os dados')
     }
 
@@ -20,11 +25,17 @@
       )
 
       alert(response.data)
-      window.location.reload()
+      
+      if(response.status === 200 && loading.value === true){
+        window.location.reload()
+      }
 
     } catch (error) {
+      alert('Não foi possível realizar o login')
+      loading.value = false
       console.log(error)
     }
+    
   }
 </script>
 
@@ -60,7 +71,9 @@
       v-model="password"
     />
   </div>
-  <Button :handleClick="handleClick" :functionType="'login'" :title="'login'"/>
+  <Button v-if="loading === false" :handleClick="handleClick" :functionType="'login'" :title="'login'"/>
+  <Button v-if="loading === true" :handleClick="handleClick" :functionType="'loading'" :title="'loading'"/>
+
   <router-link to="/signup" class="text-center">criar uma conta</router-link>
   
     

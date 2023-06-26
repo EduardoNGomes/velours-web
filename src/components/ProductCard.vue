@@ -40,7 +40,8 @@
 </script>
 
 <template>
-  <div class="rounded-md border border-gray-5 p-3 flex items-center w-full  text-gray-7 gap-4" @click="handleNavigate(item.id)">
+  <div class="rounded-md border border-gray-5 p-3 flex items-center w-full transition-all duration-500  text-gray-7 gap-4 cursor-pointer hover:bg-gray-1 " 
+  @click="handleNavigate(item.id)">
     <img :src="imageUrl"  alt="" class="w-10 h-10 rounded-full justify-self-start">
     <p class="text-lg w-full pl-5 border-l-2 ">{{ item.name }}</p>
     <p class="text-base">{{formatePrice}}</p>

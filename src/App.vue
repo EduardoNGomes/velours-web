@@ -19,7 +19,7 @@
         <h1 class="text-gray-2 font-header text-2xl">Your List</h1>
       </div>
       <ul  class="flex gap-1">
-        <li class="uppercase font-bold hover:text-gray-3" @click="handleLogout">sair</li>
+        <li class="uppercase font-bold hover:text-gray-3 cursor-pointer" @click="handleLogout">sair</li>
       </ul>
     </div>
   </header>

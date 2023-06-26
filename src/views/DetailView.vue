@@ -3,9 +3,8 @@
   import Button from '@/components/Button.vue';
   import { api } from '@/axios';
   import { useCookies } from '@vueuse/integrations/useCookies'
-import router from '@/router';
-import { formToJSON } from 'axios';
-import { fromJSON } from 'postcss';
+  import router from '@/router';
+
 
   interface Item {
     id: string
@@ -20,6 +19,7 @@ import { fromJSON } from 'postcss';
       return{
         item: {} as Item,
         cookies: useCookies(['Cookie']),
+        loading: false
       }
     },
     components:{
@@ -33,6 +33,7 @@ import { fromJSON } from 'postcss';
         this.item.coverUrl = URL.createObjectURL(file!)
       },
       async handleSendData(){
+        this.loading = true
         const form = new FormData()
         form.append('name', this.item.name)
         form.append('description', this.item.description)
@@ -52,10 +53,13 @@ import { fromJSON } from 'postcss';
           alert(response.data)
           router.push('/')
         } catch (error) {
+          this.loading = false
+          alert('Não foi possível atualizar, verifique as informações')
           console.log(error)
         }
       },
       async handleDelete(){
+        this.loading = true
         if(this.item.name||this.item.description||this.item.price||this.item.selectedImage){
           const answer = confirm('Tem certeza que deseja excluir?')
           if(answer){
@@ -66,8 +70,10 @@ import { fromJSON } from 'postcss';
                 }
               })
               alert(response.data)
-            router.push('/home') 
+              router.push('/home') 
             } catch (error) {
+              this.loading = false
+              alert('Não foi possível deletar')
               console.log(error)
             }
 
@@ -166,8 +172,10 @@ import { fromJSON } from 'postcss';
         </div>
          <!--Buttons -->
         <div class="w-full flex items-center gap-3">
-          <Button :handleClick="handleSendData" :title="'atualizar'" :function-type="'update'"/>
-          <Button :handleClick="handleDelete" :title="'deletar'" :functionType="'delete'"/>
+          <Button v-if="loading === true" :handleClick="handleSendData" :functionType="'loading'" :title="'loading'"/>
+          <Button v-if="loading === true" :handleClick="handleSendData" :functionType="'loading'" :title="'loading'"/>
+          <Button v-if="loading === false" :handleClick="handleSendData" :title="'atualizar'" :function-type="'update'"/>
+          <Button v-if="loading === false" :handleClick="handleDelete" :title="'deletar'" :functionType="'delete'"/>
         </div>
 
       </form>

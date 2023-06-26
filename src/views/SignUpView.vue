@@ -8,10 +8,17 @@
   const name = ref('')
   const email = ref('')
   const password = ref('')
-
+  const loading = ref(false)
+  
   async function handleClick() {
+    loading.value = true
     if(email.value.length === 0 || password.value.length === 0 || name.value.length === 0){
+      loading.value = false
       return alert('Preencha todos os dados')
+    }
+    if(password.value.length < 8 ){
+      loading.value = false
+      return alert('Sua senha deve conter no minimo 8 caracteres')
     }
 
     try {
@@ -25,6 +32,7 @@
       router.push('/')
 
     } catch (error) {
+      loading.value = false
       console.log(error)
     }
 
@@ -51,7 +59,7 @@
     <!--Email -->
     <div class="relative flex flex-col gap-1">
       <label for="email" class="ml-2 text-sm font-bold text-gray-1">
-        Nome:
+        Email:
       </label>
       <Ph-User :size="18" class="absolute bottom-3 left-3 text-gray-3" />
       <input
@@ -74,11 +82,13 @@
         name="password"
         id="password"
         class="rounded-full border border-gray-3 py-2 pl-8 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
-        placeholder="digite o nome do produto"
+        placeholder="digite sua senha"
+        min="8"
         v-model="password"
       />
     </div>
-    <Button :handleClick="handleClick" :functionType="'login'" :title="'login'"/>
+    <Button v-if="loading === false" :handleClick="handleClick" :functionType="'login'" :title="'cadastra'"/>
+    <Button v-if="loading === true" :handleClick="handleClick" :functionType="'loading'" :title="'loading'"/>
     <router-link to="/" class="text-center">voltar</router-link>
 
   </form>

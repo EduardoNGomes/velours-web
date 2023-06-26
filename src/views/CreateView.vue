@@ -2,11 +2,10 @@
   import NavPages from '@/components/NavPages.vue';
   import Button from '@/components/Button.vue';
   interface Item {
-    id: string
     name:string,
     description:string,
     price:number,
-    img:string ,
+    img?:string ,
     selectedImage?:File | null
   }
   export default{
@@ -26,27 +25,11 @@
         this.item.img = URL.createObjectURL(file!)
       },
       handleSendData(){
-        console.log(this.item.name)
-      },
-      handleDelete(){
-        if(this.item.name||this.item.description||this.item.price||this.item.selectedImage){
-          const answer = confirm('Tem certeza que deseja excluir?')
-          if(answer){
-            console.log('cancel')
-          }
+        if(!this.item.description || !this.item.price||!this.item.selectedImage||!this.item.name){
+          return alert('Preencha todos os campos')
         }
-      }
+      },
     },
-    async mounted(){
-      const response = {
-        id:'1',
-        name:'Produto de test',
-        description:'Produto de test description',
-        price:20,
-        img:'/images/tomioka.jpeg', 
-      }
-      this.item = response;
-    }
   }
 
 
@@ -54,7 +37,7 @@
 
 <template>
   <div class="h-screen bg-gray-2 flex flex-col items-center ">
-    <NavPages :title="'editar'"/>
+    <NavPages :title="'Cadastrar'"/>
     <main class="w-full bg-gray-7 flex-1 rounded-t-3xl">
       <form class="flex w-full flex-col gap-4 p-10">
         <!--IMG -->
@@ -120,8 +103,7 @@
           />
         </div>
         <div class="w-full flex items-center gap-3">
-          <Button :handleClick="handleSendData" :title="'atualizar'" :function-type="'update'"/>
-          <Button :handleClick="handleDelete" :title="'deletar'" :functionType="'delete'"/>
+          <Button :handleClick="handleSendData" :title="'criar'" :function-type="'create'"/>
         </div>
 
       </form>

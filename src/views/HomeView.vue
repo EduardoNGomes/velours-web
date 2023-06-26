@@ -3,6 +3,7 @@
   import ProductCard from '@/components/ProductCard.vue';
   import Button from '@/components/Button.vue';
 import { defineComponent } from 'vue';
+import router from '@/router';
   interface Item {
       id: string
       name:string,
@@ -25,7 +26,7 @@ import { defineComponent } from 'vue';
     },
     methods:{
       handleCreate(){
-        console.log('Criar')
+        router.push('/create')
       }
     },
     async mounted(){

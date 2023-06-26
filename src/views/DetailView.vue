@@ -25,8 +25,16 @@
         this.item.selectedImage = file;
         this.item.img = URL.createObjectURL(file!)
       },
-      handleLog(){
+      handleSendData(){
         console.log(this.item.name)
+      },
+      handleDelete(){
+        if(this.item.name||this.item.description||this.item.price||this.item.selectedImage){
+          const answer = confirm('Tem certeza que deseja excluir?')
+          if(answer){
+            console.log('cancel')
+          }
+        }
       }
     },
 
@@ -115,8 +123,8 @@
           />
         </div>
         <div class="w-full flex items-center gap-3">
-          <Button :handleClick="handleLog" :title="'enviar'"/>
-          <Button :handleClick="handleLog" :title="'cancelar'"/>
+          <Button :handleClick="handleSendData" :title="'atualizar'" :function-type="'update'"/>
+          <Button :handleClick="handleDelete" :title="'deletar'" :functionType="'delete'"/>
         </div>
 
       </form>

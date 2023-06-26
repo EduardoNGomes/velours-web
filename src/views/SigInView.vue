@@ -3,6 +3,7 @@
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
   import {api} from '@/axios'
+import router from '@/router';
 
   const email = ref('')
   const password = ref('')
@@ -27,6 +28,7 @@
       alert(response.data)
       
       if(response.status === 200 && loading.value === true){
+        router.push('/home')
         window.location.reload()
       }
 

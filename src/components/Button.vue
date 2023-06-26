@@ -11,7 +11,7 @@
       required: true,
     },
     handleClick:{
-      type: Function as ()=>void,
+      type: Function as () => unknown,
       required: true,
     }
   })

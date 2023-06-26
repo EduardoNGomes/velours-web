@@ -4,6 +4,8 @@ import DetailView from '@/views/DetailView.vue'
 import CreateView from '@/views/CreateView.vue'
 import SigInView from '@/views/SigInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
+import Cookies  from 'vue-cookies'
+import { useCookies } from '@vueuse/integrations/useCookies'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,7 +13,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'signIn',
-      component: SigInView
+      component: SigInView,
+      beforeEnter:(to,from,next) => {
+        const cookies = useCookies(['Cookie'])
+        if(cookies.get('token')){
+          next('/home')
+        }else{
+          next()
+        }
+      }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUpView
     },
     {
       path: '/detail/:id',
@@ -24,10 +39,11 @@ const router = createRouter({
       component: CreateView
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUpView
+      path: '/home',
+      name: 'home',
+      component: HomeView
     },
+
   ]
 })
 

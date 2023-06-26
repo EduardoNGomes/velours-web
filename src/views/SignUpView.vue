@@ -2,15 +2,32 @@
   import { PhUser, PhEnvelopeSimple } from '@phosphor-icons/vue';
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
+  import axios from 'axios';
+import router from '@/router';
 
   const name = ref('')
   const email = ref('')
   const password = ref('')
 
-  function handleClick() {
+  async function handleClick() {
     if(email.value.length === 0 || password.value.length === 0 || name.value.length === 0){
       return alert('Preencha todos os dados')
     }
+
+    try {
+      const response = await axios.post('http://localhost:3333/users',{
+        name: name.value,
+        email: email.value,
+        password: password.value
+      })
+
+      alert(response.data)
+      router.push('/')
+
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 </script>
 

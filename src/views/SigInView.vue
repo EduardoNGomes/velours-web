@@ -2,13 +2,28 @@
   import { PhUser, PhEnvelopeSimple } from '@phosphor-icons/vue';
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
+  import {api} from '@/axios'
 
   const email = ref('')
   const password = ref('')
 
-  function handleClick() {
+  async function handleClick() {
     if(email.value.length === 0 || password.value.length === 0){
       return alert('Preencha todos os dados')
+    }
+
+    try {
+      const response = await api.post('/auth',{
+        email: email.value,
+        password: password.value
+      },
+      )
+
+      alert(response.data)
+      window.location.reload()
+
+    } catch (error) {
+      console.log(error)
     }
   }
 </script>

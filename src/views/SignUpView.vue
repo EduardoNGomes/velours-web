@@ -2,8 +2,8 @@
   import { PhUser, PhEnvelopeSimple } from '@phosphor-icons/vue';
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
-  import axios from 'axios';
-import router from '@/router';
+  import router from '@/router';
+  import { api } from '@/axios';
 
   const name = ref('')
   const email = ref('')
@@ -15,7 +15,7 @@ import router from '@/router';
     }
 
     try {
-      const response = await axios.post('http://localhost:3333/users',{
+      const response = await api.post('/users',{
         name: name.value,
         email: email.value,
         password: password.value
@@ -32,7 +32,7 @@ import router from '@/router';
 </script>
 
 <template>
-  <form class="bg-gray-7 rounded-xl w-5/6 p-5 mt-10 mx-auto flex flex-col gap-2">
+  <form class="bg-gray-7 rounded-xl w-5/6 p-5 mt-10 mx-auto flex flex-col gap-2 md:max-w-screen-md">
     <!--Name -->
     <div class="relative flex flex-col gap-1">
       <label for="name" class="ml-2 text-sm font-bold text-gray-1">

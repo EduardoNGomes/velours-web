@@ -76,7 +76,7 @@
             class="hidden"
             @change="handleSelectedImage"
           />
-          <img :src="item.img" v-if="item.img" class="rounded-lg"/>
+          <img :src="item.img" v-if="item.img" class="rounded-lg max-h-96 object-cover object-top"/>
         </div>
         <!--Name -->
         <div class="relative flex flex-col gap-1">

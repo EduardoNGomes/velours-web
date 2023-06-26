@@ -29,7 +29,7 @@
 </script>
 
 <template>
-  <form class="bg-gray-7 rounded-xl w-5/6 p-5 mt-10 mx-auto flex flex-col gap-2">
+  <form class="bg-gray-7 rounded-xl w-5/6 p-5 mt-10 mx-auto flex flex-col gap-2 md:max-w-screen-sm">
     <!--Name -->
     <div class="relative flex flex-col gap-1">
       <label for="email" class="ml-2 text-sm font-bold text-gray-1">

@@ -3,12 +3,13 @@
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
   import {api} from '@/axios'
-import router from '@/router';
+  import { useCookies } from '@vueuse/integrations/useCookies'
+
 
   const email = ref('')
   const password = ref('')
   const loading = ref(false)
-
+  const cookies = useCookies(['Cookie'])
 
   async function handleClick() {
     loading.value = true
@@ -25,9 +26,13 @@ import router from '@/router';
       },
       )
 
-      alert(response.data)
       
       if(response.status === 200 && loading.value === true){
+        cookies.set('token',response.data.token, 
+        {
+          sameSite:'none',secure:true,path:'/',expires:new Date(Date.now() + 24 * 60 * 60 * 1000)
+        })
+        alert(response.data.message)
         window.location.reload()
       }
 

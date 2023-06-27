@@ -4,7 +4,6 @@ import DetailView from '@/views/DetailView.vue'
 import CreateView from '@/views/CreateView.vue'
 import SigInView from '@/views/SigInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
-import Cookies  from 'vue-cookies'
 import { useCookies } from '@vueuse/integrations/useCookies'
 
 const router = createRouter({
@@ -12,63 +11,44 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: HomeView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: DetailView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: CreateView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/',
       name: 'signIn',
       component: SigInView,
-      beforeEnter:(to,from,next) => {
-        const cookies = useCookies(['Cookie'])
-        if(cookies.get('token')){
-          next('/home')
-        }else{
-          next()
-        }
-      }
     },
     {
       path: '/signup',
       name: 'signup',
       component: SignUpView,
     },
-    {
-      path: '/detail/:id',
-      name: 'detail',
-      component: DetailView,
-      beforeEnter:(to,from,next) => {
-        const cookies = useCookies(['Cookie'])
-        if(!cookies.get('token')){
-          next('/')
-        }else{
-          next()
-        }
-      }
-    },
-    {
-      path: '/create',
-      name: 'create',
-      component: CreateView,
-      beforeEnter:(to,from,next) => {
-        const cookies = useCookies(['Cookie'])
-        if(!cookies.get('token')){
-          next('/')
-        }else{
-          next()
-        }
-      }
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: HomeView,
-      beforeEnter:(to,from,next) => {
-        const cookies = useCookies(['Cookie'])
-        if(!cookies.get('token')){
-          next('/')
-        }else{
-          next()
-        }
-      }
-    },
-
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const cookies = useCookies(['Cookie'])
+  const isAuthenticated = !!cookies.get('token')
+
+  if (to.matched.some(route => route.meta.requiresAuth) && !isAuthenticated) {
+    next({ name: 'signIn' })
+  } else {
+    next()
+  }
 })
 
 export default router

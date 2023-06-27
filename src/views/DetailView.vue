@@ -70,7 +70,7 @@
                 }
               })
               alert(response.data)
-              router.push('/home') 
+              router.push('/') 
             } catch (error) {
               this.loading = false
               alert('Não foi possível deletar')

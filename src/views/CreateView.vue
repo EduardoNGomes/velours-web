@@ -48,7 +48,7 @@
           }})
 
           alert(response.data)
-          router.push('/home')
+          router.push('/')
         } catch (error) {
           this.loading = false
           console.log(error)

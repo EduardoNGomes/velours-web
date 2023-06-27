@@ -52,7 +52,7 @@
         name="name"
         id="name"
         class="rounded-full border border-gray-3 py-2 pl-8 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
-        placeholder="digite o name para login"
+        placeholder="digite seu nome"
         v-model="name"
       />
     </div>
@@ -82,7 +82,7 @@
         name="password"
         id="password"
         class="rounded-full border border-gray-3 py-2 pl-8 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"
-        placeholder="digite sua senha"
+        placeholder="digite sua senha(mínimo 8 caracteres)"
         min="8"
         v-model="password"
       />

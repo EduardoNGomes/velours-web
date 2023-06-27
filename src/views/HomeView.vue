@@ -48,7 +48,9 @@
 
 <template>
   <main class="h-screen bg-gray-2 flex flex-col items-center p-2 gap-5">
-    <LogoAPP class="w-64 h-64"/>
+    <div class="rounded-full w-[300px] h-[300px]  bg-green-mid flex items-center justify-center">
+      <LogoAPP class="w-64 h-64"/>
+    </div>
     <div class="w-full flex items-center justify-center flex-col gap-3 border border-transparent pb-4 border-b-gray-7 ">
       <h2 class="capitalize font-bold text-gray-6 w-fit self-start">Seus produtos</h2>
       <Button :functionType="'create'" :title="'novo produto'" :handle-click="handleCreate"/>

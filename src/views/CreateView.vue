@@ -120,6 +120,7 @@
           >R$:</span>
           <input
             type="number"
+            step="any"
             name="price"
             id="price"
             class="rounded-full border border-gray-3 py-2 pl-10 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"

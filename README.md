@@ -1,40 +1,60 @@
-# web
+<h1 align="center">
+    Your List
+</h1>
 
-This template should help get you started developing with Vue 3 in Vite.
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">Licença</a>
+</p>
 
-## Recommended IDE Setup
+<p align="center">
+  <img alt="License" src="https://i.imgur.com/CIzdZLn.png">
+</p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<br>
 
-## Type Support for `.vue` Imports in TS
+## 🚀 Tecnologias
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- VUE
+- TypeScript
+- Tailwind
+- Axios
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 💻 Projeto
 
-## Customize configuration
+Desafio criado para um desafio técnico para uma vaga de desenvolvedor jr.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Como utilizar
 
-## Project Setup
+- Clone este repositório
+- Execute o comando ```npm install```
+- Execute o comando ```npm run dev```
 
-```sh
-npm install
-```
+### Para testar toda a aplicação utilize o Back-End
+[Your List-Server](https://github.com/EduardoNGomes/velours-server)
 
-### Compile and Hot-Reload for Development
+## Licença
 
-```sh
-npm run dev
-```
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+## Desenvolvido por
+<table>
+   <thead>
+      <tr>
+        <td valign="bottom">
+            <p align="center">
+               <a href="https://github.com/eduardongomes">
+               <img src="https://github.com/eduardongomes.png?size=100" align="center" />
+               </a>
+            </p>
+         </td>
+   </thead>
+   <tbody>
+      <tr>
+         <td><a href="https://github.com/eduardongomes">Lara Azevedo</a></td>
+      </tr>
+   </tbody>
+</table>

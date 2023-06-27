@@ -28,7 +28,7 @@ import router from '@/router';
       alert(response.data)
       
       if(response.status === 200 && loading.value === true){
-        // window.location.reload()
+        window.location.reload()
       }
 
     } catch (error) {

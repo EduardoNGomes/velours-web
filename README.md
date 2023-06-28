@@ -54,7 +54,7 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
    </thead>
    <tbody>
       <tr>
-         <td><a href="https://github.com/eduardongomes">Lara Azevedo</a></td>
+         <td><a href="https://github.com/eduardongomes">Eduardo Gomes</a></td>
       </tr>
    </tbody>
 </table>

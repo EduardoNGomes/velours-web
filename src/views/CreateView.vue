@@ -32,6 +32,9 @@
       },
       async handleSendData(){
         this.loading = true
+        if(this.item.price <0){
+          return alert("Escohla um valor acima de 0")
+        }
         if(!this.item.description || !this.item.price||!this.item.selectedImage||!this.item.name){
           this.loading = false
           return alert('Preencha todos os campos')
@@ -121,6 +124,7 @@
           <input
             type="number"
             step="any"
+            min="0"
             name="price"
             id="price"
             class="rounded-full border border-gray-3 py-2 pl-10 pr-2 text-gray-2 outline-gray-3 focus:outline-gray-1"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { PhUser, PhEnvelopeSimple } from '@phosphor-icons/vue';
+  import { PhUser, PhEnvelopeSimple, PhLock } from '@phosphor-icons/vue';
   import { ref } from 'vue';
   import Button from '@/components/Button.vue';
   import {api} from '@/axios'
@@ -67,7 +67,7 @@
     <label for="password" class="ml-2 text-sm font-bold text-gray-1" >
       senha:
     </label>
-    <PhEnvelopeSimple :size="18" class="absolute bottom-3 left-3 text-gray-3"/>
+    <PhLock  :size="18" class="absolute bottom-3 left-3 text-gray-3"/>
     <input
       type="password"
       name="password"

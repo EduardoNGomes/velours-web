@@ -33,6 +33,7 @@
       async handleSendData(){
         this.loading = true
         if(this.item.price <0){
+          this.loading = false
           return alert("Escohla um valor acima de 0")
         }
         if(!this.item.description || !this.item.price||!this.item.selectedImage||!this.item.name){
